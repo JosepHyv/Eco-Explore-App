@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Eco-Explore",
+    "jsEngine": "hermes",
     "slug": "Eco-Explore",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,16 +16,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "jsc"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "jsEngine": "jsc",
+      "package": "com.josephyv.EcoExplore"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c74e2cae-57b8-40dd-8ba4-7e398f920b39"
+      }
     }
   }
 }

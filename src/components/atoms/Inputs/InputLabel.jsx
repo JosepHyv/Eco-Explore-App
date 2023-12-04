@@ -1,0 +1,40 @@
+import AnimatedTextInput from "react-native-animated-placeholder-textinput";
+import { StyleSheet } from "react-native";
+
+const InputLabel = ({
+  placeholder = "Type Here",
+  value,
+  onChangeText,
+  keyboardType = "default",
+  secureTextEntry,
+  autoCapitalize = "none",
+  autoCorrect = "none",
+  ...rest
+}) => {
+  return (
+    <AnimatedTextInput
+      {...labelStyle.Config}
+      placeholder={placeholder}
+      value={value}
+      keyboardType={keyboardType}
+      secureTextEntry={secureTextEntry}
+      onChangeText={(entrada) => {
+        console.log({ ...rest });
+        onChangeText(entrada);
+      }}
+    />
+  );
+};
+
+const labelStyle = StyleSheet.create({
+  Config: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#68A044",
+    placeholderTextColor: "#68A044",
+    borderRadius: 10,
+    alignItems: "stretch",
+  },
+});
+
+export default InputLabel;
