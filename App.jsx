@@ -13,8 +13,6 @@ import { createNativeStackNavigator} from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-	// const [valor, setValor] = useState("");
-	// const [selected, setSelected] = useState({});
 	return (
 		<SafeAreaView style={styles.container}>
 			<NavigationContainer>
