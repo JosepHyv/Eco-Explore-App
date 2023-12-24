@@ -5,7 +5,7 @@ import EcoExplore from "../../assets/logos/EcoExplore.svg";
 import InputLabel from "../components/atoms/Inputs/InputLabel";
 
 
-const LogIn = () => { 
+const LogIn = ({navigation}) => { 
 	return ( 
 		<SafeAreaView style={style.container}>
 			<View style={style.presentationContainer}>
@@ -19,7 +19,7 @@ const LogIn = () => {
 			<InputLabel placeholder="Direccion de Correo"/>
 			<InputLabel placeholder="Contraseña"/>
 
-			<EcoButton title={"Iniciar Sesion"} onPress={() => console.log("presset")} style={style.button}/>
+			<EcoButton title={"Iniciar Sesion"} onPress={() => navigation.navigate("LandingPage")}/>
 			<Text style={style.subtitle}>¿Has olvidado tu contraseña?</Text>
 		</SafeAreaView>
 	);

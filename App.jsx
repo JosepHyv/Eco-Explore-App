@@ -9,6 +9,7 @@ import {
 import LogIn from "./src/screens/LogIn";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator} from "@react-navigation/native-stack";
+import LandingPage from "./src/screens/LandingPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,10 @@ export default function App() {
 						component={LogIn}
 						options={{headerShown: false}}
 					/>
+					<Stack.Screen
+						name='LandingPage'
+						component={LandingPage}
+					/>
 				</Stack.Navigator>
 			</NavigationContainer>
 		
@@ -32,7 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		margin: 10,
+		// margin: 5,
 		gap: 10,
 		// borderWidth: 1,
 	},
