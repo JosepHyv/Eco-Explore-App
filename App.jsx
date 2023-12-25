@@ -8,27 +8,41 @@ import {
 
 import LogIn from "./src/screens/LogIn";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator} from "@react-navigation/native-stack";
+import { BlurView } from "expo-blur";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LandingPage from "./src/screens/LandingPage";
 
-const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+
+
 
 export default function App() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<NavigationContainer>
-				<StatusBar barStyle={"default"} />
-				<Stack.Navigator>
-					<Stack.Screen
+				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
+				<Tab.Navigator
+					// screenOptions={{
+
+					// 	// tabBarStyle: { position: "absolute" },
+					// 	tabBarBackground: () => (
+					// 		<BlurView tint="light" intensity={100} style={StyleSheet.absoluteFill} />
+					// 	),
+					// }}
+				>
+					<Tab.Screen
 						name="LogIn"
 						component={LogIn}
-						options={{headerShown: false}}
+						options={{tabBarShow: false,headerShown: false}}
 					/>
-					<Stack.Screen
+					<Tab.Screen
 						name='LandingPage'
 						component={LandingPage}
+						options={{headerShown: false}}
 					/>
-				</Stack.Navigator>
+				</Tab.Navigator>
 			</NavigationContainer>
 		
 		</SafeAreaView>
@@ -37,6 +51,8 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor:"#fff",
+		// paddingHorizontal:10,
 		// margin: 5,
 		gap: 10,
 		// borderWidth: 1,

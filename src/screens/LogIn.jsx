@@ -29,6 +29,7 @@ const LogIn = ({navigation}) => {
 const style = StyleSheet.create({
 	container:{
 		flex:1,
+		paddingHorizontal:7,
 		gap:20,
 		alignItems:"stretch",
 		backgroundColor:"#fff"
