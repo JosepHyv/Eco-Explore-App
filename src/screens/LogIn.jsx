@@ -69,7 +69,7 @@ const style = StyleSheet.create({
 		flex:1,
 		paddingHorizontal:7,
 		gap:20,
-		alignItems:"stretch",
+		// alignItems:"stretch",
 		backgroundColor:"#fff"
 	},
 	logo:{

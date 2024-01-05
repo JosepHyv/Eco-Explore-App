@@ -14,6 +14,7 @@ import LandingPage from "./src/screens/LandingPage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useTokenStore from "./src/hooks/TockenStore";
 import CrearCuenta from "./src/screens/Crear";
+import EditProfile from "./src/screens/EditProfile";
 import * as LocalStorage from "./src/hooks/LocalStorage";
 
 const Tab = createBottomTabNavigator();
@@ -90,7 +91,7 @@ export default function App() {
 								/>
 								<Tab.Screen
 									name='Perfil'
-									component={LandingPage}
+									component={EditProfile}
 									options={{headerShown: false}}
 								/>
 							</>}
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor:"#fff",
+
 		// paddingHorizontal:10,
 		// margin: 5,
 		gap: 10,

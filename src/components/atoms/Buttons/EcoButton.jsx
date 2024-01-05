@@ -1,11 +1,11 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 
-const EcoButton = ({ title, onPress, onLongPress = {} }) => {
+const EcoButton = ({ title, onPress, onLongPress = {}, color="#68A044" }) => {
 
 	return (
 		<Pressable
-			style={EcoButtonStyle.container}
+			style={[EcoButtonStyle.container, {backgroundColor:color}]}
 			onPress={() => onPress()}
 			onLongPress={() => {
 				if (onLongPress) onLongPress();
