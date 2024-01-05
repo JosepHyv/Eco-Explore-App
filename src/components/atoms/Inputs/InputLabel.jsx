@@ -20,7 +20,7 @@ const InputLabel = ({
 			keyboardType={keyboardType}
 			secureTextEntry={secureTextEntry}
 			onChangeText={(entrada) => {
-				console.log({ ...rest });
+				console.log(entrada);
 				onChangeText(entrada);
 			}}
 		/>
@@ -29,6 +29,7 @@ const InputLabel = ({
 
 const labelStyle = StyleSheet.create({
 	Config: {
+		width:"100%",
 		padding: 10,
 		borderWidth: 1,
 		borderColor: "#68A044",
