@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 
-const EcoButton = ({ title, onPress, onLongPress = {}, style={} }) => {
+const EcoButton = ({ title, onPress, onLongPress = {} }) => {
 
 	return (
 		<Pressable
@@ -11,7 +11,7 @@ const EcoButton = ({ title, onPress, onLongPress = {}, style={} }) => {
 				if (onLongPress) onLongPress();
 			}}
 		>
-			<Text style={[EcoButtonStyle.title, {...style}]}>{title}</Text>
+			<Text style={[EcoButtonStyle.title]}>{title}</Text>
 		</Pressable>
 	);
 };
@@ -34,7 +34,9 @@ const EcoButtonStyle = StyleSheet.create({
 		alignContent: "center",
 	},
 	title: {
-		fontWeight: "500",
+		fontSize:20,
+		fontWeight: "600",
+		textAlign:"center",
 		color: "#fff",
 	},
 });

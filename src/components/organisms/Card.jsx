@@ -3,8 +3,8 @@ import { View, Image, Text, StyleSheet, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const cutDescription = (desc) => {
-	if (desc.length > 130) {
-		const sub = desc.slice(0, 130) + "...";
+	if (desc.length > 50) {
+		const sub = desc.slice(0, 80) + "...";
 		return sub;
 	}
 	return desc;
@@ -24,7 +24,6 @@ const formatRaiting = (rate) => Number(rate).toFixed(1);
 const Card = ({
 	dificulty,
 	raiting,
-	totalVotes,
 	title,
 	description,
 	imageUri,
@@ -41,9 +40,7 @@ const Card = ({
 						<Text style={styles.dificultTitle}>{dificulty}</Text>
 						<Ionicons name="ios-star-outline" size={20} color="green" />
 						<Text style={styles.raintingTitle}>{formatRaiting(raiting)}</Text>
-						<Text style={styles.raintingTitle} s>
-              ({totalVotes})
-						</Text>
+						
 					</View>
 
 					<Text style={styles.title}>{cutTitle(title)}</Text>
@@ -59,7 +56,7 @@ const Card = ({
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: "column",
-		height: 330,
+		height: 340,
 		width: 400,
 		// borderWidth:1,
 		alignContent: "center",

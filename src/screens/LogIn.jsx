@@ -1,11 +1,47 @@
 import React from "react";
-import { SafeAreaView, Text, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { SafeAreaView, Text, StyleSheet, View, Alert, Pressable } from "react-native";
 import EcoButton from "../components/atoms/Buttons/EcoButton";
 import EcoExplore from "../../assets/logos/EcoExplore.svg";
 import InputLabel from "../components/atoms/Inputs/InputLabel";
+import { eco_explore_api } from "../utils/constants";
+import axios from "axios";
+import * as LocalStorage from "../hooks/LocalStorage";
+import useTokenStore from "../hooks/TockenStore";
 
 
 const LogIn = ({navigation}) => { 
+	const [email, setEmail] = useState("");
+	const [contra, setContra] = useState("");
+	const {setToken} = useTokenStore();
+
+	
+	const VerificateLogIn = (mail, password) => {
+		if(!mail.length || !password.length){
+			Alert.alert("Debes ingresar tu email y contraseña");
+		}
+		else{
+			const data = {
+				"username": mail, 
+				"password": password
+			};
+			const config = {headers: { "content-type": "application/x-www-form-urlencoded" }};
+			const url = eco_explore_api + "/" + "token";
+			axios.post(url, data, config)
+				.then((res) => {
+					console.log(res.data);
+					LocalStorage.storeData("token", res.data).then(() => {
+						setToken(res.data);
+						navigation.navigate("Explorar");
+					});
+				}).catch((res) => {
+					Alert.alert("El usuario o la contraseña son invalidos");
+
+				});
+			
+		}
+	};
+	
 	return ( 
 		<SafeAreaView style={style.container}>
 			<View style={style.presentationContainer}>
@@ -16,11 +52,13 @@ const LogIn = ({navigation}) => {
 					eco explore
 				</Text>
 			</View>
-			<InputLabel placeholder="Direccion de Correo"/>
-			<InputLabel placeholder="Contraseña"/>
+			<InputLabel placeholder="Direccion de Correo" value={email} onChangeText={(value) => setEmail(value)}/>
+			<InputLabel placeholder="Contraseña" value={contra} onChangeText={(value) => setContra(value)}/>
 
-			<EcoButton title={"Iniciar Sesion"} onPress={() => navigation.navigate("LandingPage")}/>
-			<Text style={style.subtitle}>¿Has olvidado tu contraseña?</Text>
+			<EcoButton title={"Iniciar Sesion"} onPress={() => VerificateLogIn(email, contra)}/>
+			<Pressable onPress={() => navigation.navigate("CrearCuenta")}>
+				<Text style={style.subtitle}>¿No tienes cuenta? Crea Una!</Text>
+			</Pressable>
 		</SafeAreaView>
 	);
 };
