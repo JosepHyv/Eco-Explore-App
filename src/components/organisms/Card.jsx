@@ -30,8 +30,8 @@ const Card = ({
 	onPress,
 }) => {
 	return (
-		<Pressable onPress={(event) => onPress(event)}>
-			<View style={styles.container}>
+		<View style={styles.container}>
+			<Pressable onPress={(event) => onPress(event)}>
 				<View style={styles.imageContainer}>
 					<Image style={styles.image} source={imageUri} />
 				</View>
@@ -48,8 +48,8 @@ const Card = ({
 						{cutDescription(description)}
 					</Text>
 				</View>
-			</View>
-		</Pressable>
+			</Pressable>
+		</View>
 	);
 };
 
@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "column",
 		height: 340,
-		width: 400,
+		width: 360,
+		marginVertical:5,
+		marginHorizontal:5,
 		// borderWidth:1,
 		alignContent: "center",
 		verticalAlign: "middle",
@@ -95,12 +97,12 @@ const styles = StyleSheet.create({
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
-			height: 6,
+			height: 3,
 		},
-		shadowOpacity: 0.39,
-		shadowRadius: 8.3,
+		shadowOpacity: 0.29,
+		shadowRadius: 4.65,
 
-		elevation: 13,
+		elevation: 7,
 		// borderWidth:1
 	},
 	subheader: {

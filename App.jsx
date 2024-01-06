@@ -41,15 +41,14 @@ export default function App() {
 				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
 				<Tab.Navigator
 					screenOptions={({ route }) => ({
+						tabBarLabelStyle:{fontSize:13},
 		 				tabBarStyle: { position: "fixed" },
 						tabBarIcon: ({ focused, color, size }) => {
 							let iconName;
 
 							if (route.name === "Explorar") {
-								iconName = "ios-search";
-								// iconName = focused
-								// 	? "ios-search"
-								// 	: "ios-information-circle-outline";
+								// iconName = "search-circle";
+								iconName = focused ? "search-circle-sharp" : "search-circle-outline";
 							} else if (route.name === "Agregar") {
 								iconName = focused ? "add-circle" : "add-circle-outline";
 							}
@@ -58,7 +57,7 @@ export default function App() {
 							}
 
 							// You can return any component that you like here!
-							return <Ionicons name={iconName} size={size} color={color} />;
+							return <Ionicons name={iconName} size={30} color={color} />;
 						},
 						tabBarActiveTintColor: "green",
 						tabBarInactiveTintColor: "gray",

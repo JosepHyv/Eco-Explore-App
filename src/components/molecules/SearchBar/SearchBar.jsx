@@ -15,7 +15,7 @@ const SearchBar = ({ placeholder, value, onTextChange }) => {
 				value={value}
 				onChangeText={(content) => onTextChange(content)}
 			/>
-			<View
+			{/* <View
 				style={[
 					styles.iconContainer,
 					{
@@ -28,8 +28,8 @@ const SearchBar = ({ placeholder, value, onTextChange }) => {
 			>
 				<Pressable onPress={() => console.log("filtering...")}>
 					<Ionicons name="filter-outline" size={20} />
-				</Pressable>
-			</View>
+				</Pressable> 
+			</View> */}
 		</View>
 	);
 };
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
 		margin: 3,
-		padding: 5,
+		padding:10,
 		gap: 5,
 		borderColor: "#68A044",
 		borderWidth: 1,
@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
-			height: 3,
+			height: 1,
 		},
-		shadowOpacity: 0.29,
-		shadowRadius: 4.65,
+		shadowOpacity: 0.22,
+		shadowRadius: 2.22,
 
-		elevation: 7,
+		elevation: 3,
 	},
 	iconContainer: {
 		marginHorizontal: 5,
