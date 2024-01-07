@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import LogIn from "./src/screens/LogIn";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LandingPage from "./src/screens/LandingPage";
@@ -18,7 +18,16 @@ import EditProfile from "./src/screens/EditProfile";
 import * as LocalStorage from "./src/hooks/LocalStorage";
 
 const Tab = createBottomTabNavigator();
-
+const Theme = {
+	// ...DefaultTheme,
+	dark:true,
+	colors:{
+		dark:"#000",
+		// ...DefaultTheme.colors,
+		primary: "#fff",
+		background:"#fff"
+	}
+};
 
 
 export default function App() {
@@ -37,13 +46,13 @@ export default function App() {
 	},[]);
 	return (
 		<SafeAreaView style={styles.container}>
-			<NavigationContainer>
+			<NavigationContainer theme={Theme}>
 				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
 				<Tab.Navigator
 					screenOptions={({ route }) => ({
 						tabBarLabelStyle:{fontSize:13},
-		 				tabBarStyle: { position: "fixed" },
-						tabBarIcon: ({ focused, color, size }) => {
+						tabBarStyle: { position: "fixed" },
+						tabBarIcon: ({ focused, color }) => {
 							let iconName;
 
 							if (route.name === "Explorar") {

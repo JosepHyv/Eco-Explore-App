@@ -15,21 +15,26 @@ const SearchBar = ({ placeholder, value, onTextChange }) => {
 				value={value}
 				onChangeText={(content) => onTextChange(content)}
 			/>
-			{/* <View
-				style={[
-					styles.iconContainer,
-					{
-						backgroundColor: "#F2F2F2",
-						opacity: 0.9,
-						borderRadius: 100,
-						padding: 2,
-					},
-				]}
+			<View
+				// style={[
+				// 	styles.iconContainer,
+				// 	{
+				// 		backgroundColor: "#F2F2F2",
+				// 		opacity: 0.9,
+				// 		borderRadius: 100,
+				// 		padding: 2,
+				// 	},
+				// ]}
 			>
-				<Pressable onPress={() => console.log("filtering...")}>
-					<Ionicons name="filter-outline" size={20} />
-				</Pressable> 
-			</View> */}
+				<>
+					{value.length? 				<Pressable onPress={() => onTextChange("")}>
+						{/* <Ionicons name="fclose-circle" size={20} /> */}
+						<Ionicons name="close-circle" size={20} />
+					</Pressable> :
+						<></> }
+				</>
+
+			</View>
 		</View>
 	);
 };

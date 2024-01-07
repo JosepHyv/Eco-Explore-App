@@ -8,6 +8,7 @@ const InputLabel = ({
 	onChangeText,
 	keyboardType = "default",
 	secureTextEntry,
+	autoCapitalize,
 	// autoCapitalize = "none",
 	// autoCorrect = "none",
 	...rest
@@ -15,10 +16,16 @@ const InputLabel = ({
 	return (
 		<AnimatedTextInput
 			{...labelStyle.Config}
+			textInputProps={{
+				keyboardType,
+				secureTextEntry,
+				autoCapitalize
+
+			}}
 			placeholder={placeholder}
 			value={value}
-			keyboardType={keyboardType}
-			secureTextEntry={secureTextEntry}
+			// keyboardType={keyboardType}
+			// secureTextEntry={secureTextEntry}
 			onChangeText={(entrada) => {
 				console.log(entrada);
 				onChangeText(entrada);

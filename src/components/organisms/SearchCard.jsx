@@ -2,14 +2,6 @@ import React from "react";
 import { View, Image, Text, StyleSheet, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const cutDescription = (desc) => {
-	if (desc.length > 50) {
-		const sub = desc.slice(0, 80) + "...";
-		return sub;
-	}
-	return desc;
-};
-
 const cutTitle = (title) => {
 	if (title.length > 50) {
 		const sub = title.slice(0, 47) + "...";
@@ -21,54 +13,72 @@ const cutTitle = (title) => {
 const formatRaiting = (rate) => Number(rate).toFixed(1);
 
 
-const Card = ({
+const SearchCard = ({
 	dificulty,
 	raiting,
 	title,
-	description,
 	imageUri,
-	onPress,
-	search = false
+	onPress = () => {},
+
 }) => {
 	return (
-		<View style={[styles.container, {width: search? "97%":360}]}>
-			<Pressable onPress={(event) => onPress(event)}>
+		<Pressable onPress={() => {
+			console.log("precionada");
+			onPress();
+		}}>
+			<View style={[styles.container]}>
 				<View style={styles.imageContainer}>
 					<Image style={styles.image} source={imageUri} />
 				</View>
 				<View style={styles.detailsContainer}>
+					<Text style={styles.title}>{cutTitle(title)}</Text>
 					<View style={styles.subheader}>
 						<Text style={styles.dificultTitle}>{dificulty}</Text>
 						<Ionicons name="ios-star-outline" size={20} color="green" />
 						<Text style={styles.raintingTitle}>{formatRaiting(raiting)}</Text>
-						
+                        
 					</View>
-
-					<Text style={styles.title}>{cutTitle(title)}</Text>
-					<Text style={styles.descriptionTitle}>
-						{cutDescription(description)}
-					</Text>
 				</View>
-			</Pressable>
-		</View>
+				{/* <Pressable onPress={(event) => onPress(event)}>
+                </Pressable> */}
+			</View>
+		</Pressable>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
 		flex:1,
-		flexDirection: "column",
-		height: 340,
-		// width: 360,
-		marginVertical:5,
 		marginHorizontal:5,
+		marginVertical:10,
+		height: 250,
+		flexDirection: "column",
 		// borderWidth:1,
 		alignContent: "center",
 		verticalAlign: "middle",
+		borderRadius: 20,
+		backgroundColor: "#fff",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 3,
+		},
+		shadowOpacity: 0.29,
+		shadowRadius: 4.65,
+
+		elevation: 7,
+        
 	},
 	detailsContainer: {
-		flexDirection: "column",
-		marginTop: 5,
+		flexDirection: "row",
+		backgroundColor:"#effcf4",
+		height:50,
+		alignItems:"center",
+		justifyContent:"space-around",
+		gap:20,
+		borderBottomLeftRadius:20,
+		borderBottomRightRadius:20,
+		// borderWidth:1,
 	},
 	dificultTitle: {
 		fontWeight: "500",
@@ -90,35 +100,26 @@ const styles = StyleSheet.create({
 		textTransform: "capitalize",
 	},
 	imageContainer: {
-		height: 230,
-		width: "100%",
-		borderRadius: 20,
-		alignSelf: "center",
-		// padding:10,
-		backgroundColor: "#fff",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 3,
-		},
-		shadowOpacity: 0.29,
-		shadowRadius: 4.65,
-
-		elevation: 7,
-		// borderWidth:1
+		flex:1,
+		height:200,
+		width:"100%",
 	},
 	subheader: {
+		height:50,
 		flexDirection: "row",
-		// borderWidth:1,
+
 		gap: 5,
 		alignItems: "center",
 	},
 	image: {
-		height: 230,
+		height: 200,
 		width: "100%",
-		resizeMode: "stretch",
-		borderRadius: 20,
+		resizeMode: "cover",
+		// borderRadius: 20,
+		borderTopLeftRadius:20,
+		borderTopRightRadius:20,
+
 	},
 });
 
-export default Card;
+export default SearchCard;

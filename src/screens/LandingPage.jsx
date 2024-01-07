@@ -1,24 +1,21 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { SafeAreaView, StyleSheet, Text, View, FlatList, ScrollView } from "react-native";
 import SearchBar from "../components/molecules/SearchBar/SearchBar";
-import Card from "../components/organisms/Card";
-import FilterBar from "../components/molecules/FilterBar/FilterBar";
 import * as LocalStorage from "../hooks/LocalStorage";
-import { eco_explore_api } from "../utils/constants";
+import { eco_explore_api } from "../utils/ApiUtils";
 import axios from "axios";
-import EmptyCarrousell from "../components/organisms/CarrousellStates";
 import useTokenStore from "../hooks/TockenStore";
 import useUserStore from "../hooks/UserStore";
 import RouteShowcase from "../components/organisms/RouteShowcase";
-
+import SearchResult from "../components/molecules/SearchBar/SearchResults";
 
 // Caminata,Ciclismo,Montañismo,Escalada,Rapel,Cañonismo
   
 const LandingPage = ({navigation}) => {
 	const {token, setToken} = useTokenStore();
 	const {setUsuario} = useUserStore();
-
+	const [searchRoute, setSearch] = useState("");
 	useEffect(() => {
 		const actividades = ["Caminata","Ciclismo","Montañismo","Escalada","Rapel","Cañonismo"];
 		const urls = [];
@@ -41,8 +38,9 @@ const LandingPage = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<SearchBar placeholder={"Busca Tus Rutas Favoritas!!"} />
-			<RouteShowcase/>
+			<SearchBar placeholder={"Busca Tus Rutas Favoritas!!"} value={searchRoute} onTextChange={(value) => setSearch(value)}/>
+			<>{searchRoute.length? <SearchResult navigation={navigation} search={searchRoute}/>: <RouteShowcase/> }</>
+			
 		</SafeAreaView>
 		
 	);

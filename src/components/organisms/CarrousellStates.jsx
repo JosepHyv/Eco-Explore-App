@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { View,  Text, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import Card from "./Card";
 import axios from "axios";
-import { eco_explore_api } from "../../utils/constants";
+import { eco_explore_api } from "../../utils/ApiUtils";
 
 const getImageUri = (item) => {
 	if(item !== undefined && item.PuntosInteres.length){
@@ -92,15 +92,18 @@ const CarrouselState = ({activity=""}) => {
 
 const styles = StyleSheet.create({
 	container: {
+		flex:1,
 		backgroundColor:"#FBFCFD",
-		marginHorizontal:5,
+		// marginHorizontal:5,
+		marginVertical:5,
+
 		// opacity:0.5,
 		// borderWidth:0.8,
 		borderRadius:20,
 		flexDirection: "column",
 		flexWrap:"wrap",
 		height: 340,
-		width: 360,
+		width: "100%",
 		justifyContent:"center",
 		alignContent: "center",
 		shadowColor: "#000",

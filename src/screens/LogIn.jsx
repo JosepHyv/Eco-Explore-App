@@ -4,7 +4,7 @@ import { SafeAreaView, Text, StyleSheet, View, Alert, Pressable } from "react-na
 import EcoButton from "../components/atoms/Buttons/EcoButton";
 import EcoExplore from "../../assets/logos/EcoExplore.svg";
 import InputLabel from "../components/atoms/Inputs/InputLabel";
-import { eco_explore_api } from "../utils/constants";
+import { eco_explore_api } from "../utils/ApiUtils";
 import axios from "axios";
 import * as LocalStorage from "../hooks/LocalStorage";
 import useTokenStore from "../hooks/TockenStore";
@@ -52,8 +52,8 @@ const LogIn = ({navigation}) => {
 					eco explore
 				</Text>
 			</View>
-			<InputLabel placeholder="Direccion de Correo" value={email} onChangeText={(value) => setEmail(value)}/>
-			<InputLabel placeholder="Contraseña" value={contra} onChangeText={(value) => setContra(value)}/>
+			<InputLabel placeholder="Direccion de Correo" value={email} onChangeText={(value) => setEmail(value)} keyboardType="email-address" autoCapitalize={"none"}/>
+			<InputLabel placeholder="Contraseña" value={contra} onChangeText={(value) => setContra(value)} keyboardType="default" secureTextEntry/>
 
 			<EcoButton title={"Iniciar Sesion"} onPress={() => VerificateLogIn(email, contra)}/>
 			<Pressable onPress={() => navigation.navigate("CrearCuenta")}>
@@ -67,9 +67,9 @@ const LogIn = ({navigation}) => {
 const style = StyleSheet.create({
 	container:{
 		flex:1,
-		paddingHorizontal:7,
+		marginHorizontal:8,
 		gap:20,
-		// alignItems:"stretch",
+		alignItems:"stretch",
 		backgroundColor:"#fff"
 	},
 	logo:{
