@@ -4,7 +4,7 @@ import { SafeAreaView, Text, StyleSheet, View, Alert, Pressable } from "react-na
 import EcoButton from "../components/atoms/Buttons/EcoButton";
 import EcoExplore from "../../assets/logos/EcoExplore.svg";
 import InputLabelNative from "../components/atoms/Inputs/InpuLabelNative";
-import { eco_explore_api } from "../utils/constants";
+import { eco_explore_api } from "../utils/ApiUtils";
 import axios from "axios";
 import * as LocalStorage from "../hooks/LocalStorage";
 import useTokenStore from "../hooks/TockenStore";
@@ -78,10 +78,14 @@ const CrearCuenta = ({navigation}) => {
 				</Text>
 			</View>
 			<InputLabel placeholder="Nombre" value={nombre} onChangeText={(value) => setNombre(value)}/>
-			<InputLabel placeholder="Apellido Paterno" value={apellidoP} onChangeText={(value) => setApellidoP(value)}/>
-			<InputLabel placeholder="Apellido Materno" value={apellidoM} onChangeText={(value) => setApellidoM(value)}/>
-			<InputLabel placeholder="Correo" value={email} onChangeText={(value) => setEmail(value)}/>
-			<InputLabel placeholder="Telefono" value={telefono} onChangeText={(value) => setTelefono(value)}/>
+			<View style={style.rowContainer}>
+				<InputLabel placeholder="Apellido Paterno" value={apellidoP} onChangeText={(value) => setApellidoP(value)}/>
+				<InputLabel placeholder="Apellido Materno" value={apellidoM} onChangeText={(value) => setApellidoM(value)}/>
+			</View>
+			<View>
+				<InputLabel placeholder="Correo" value={email} onChangeText={(value) => setEmail(value)}/>
+				<InputLabel placeholder="Telefono" value={telefono} onChangeText={(value) => setTelefono(value)}/>
+			</View>
 			<InputLabelNative placeholder="Contraseña" value={contra} password onChangeText={(value) => setContra(value)}/>
 			<InputLabelNative placeholder="Repetir Contraseña" value={repContra} password onChangeText={(value) => setRepContra(value)}/>
 
@@ -149,7 +153,13 @@ const style = StyleSheet.create({
 		// gap:10,
 		borderWidth:1,
 		// paddingHorizontal: 10
-	}
+	},
+	rowContainer: {
+		flexDirection: "row",
+		gap:5,
+		justifyContent: "space-between",
+		// marginBottom: 16,
+	},
 });
 
 export default CrearCuenta;

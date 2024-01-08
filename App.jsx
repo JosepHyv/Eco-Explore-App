@@ -7,17 +7,27 @@ import {
 } from "react-native";
 
 import LogIn from "./src/screens/LogIn";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LandingPage from "./src/screens/LandingPage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useTokenStore from "./src/hooks/TockenStore";
 import CrearCuenta from "./src/screens/Crear";
+import EditProfile from "./src/screens/EditProfile";
 import * as LocalStorage from "./src/hooks/LocalStorage";
 
 const Tab = createBottomTabNavigator();
-
+const Theme = {
+	// ...DefaultTheme,
+	dark:true,
+	colors:{
+		dark:"#000",
+		// ...DefaultTheme.colors,
+		primary: "#fff",
+		background:"#fff"
+	}
+};
 
 
 export default function App() {
@@ -36,19 +46,18 @@ export default function App() {
 	},[]);
 	return (
 		<SafeAreaView style={styles.container}>
-			<NavigationContainer>
+			<NavigationContainer theme={Theme}>
 				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
 				<Tab.Navigator
 					screenOptions={({ route }) => ({
-		 				tabBarStyle: { position: "fixed" },
-						tabBarIcon: ({ focused, color, size }) => {
+						tabBarLabelStyle:{fontSize:13},
+						tabBarStyle: { position: "fixed" },
+						tabBarIcon: ({ focused, color }) => {
 							let iconName;
 
 							if (route.name === "Explorar") {
-								iconName = "ios-search";
-								// iconName = focused
-								// 	? "ios-search"
-								// 	: "ios-information-circle-outline";
+								// iconName = "search-circle";
+								iconName = focused ? "search-circle-sharp" : "search-circle-outline";
 							} else if (route.name === "Agregar") {
 								iconName = focused ? "add-circle" : "add-circle-outline";
 							}
@@ -57,7 +66,7 @@ export default function App() {
 							}
 
 							// You can return any component that you like here!
-							return <Ionicons name={iconName} size={size} color={color} />;
+							return <Ionicons name={iconName} size={30} color={color} />;
 						},
 						tabBarActiveTintColor: "green",
 						tabBarInactiveTintColor: "gray",
@@ -90,7 +99,7 @@ export default function App() {
 								/>
 								<Tab.Screen
 									name='Perfil'
-									component={LandingPage}
+									component={EditProfile}
 									options={{headerShown: false}}
 								/>
 							</>}
@@ -105,6 +114,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor:"#fff",
+
 		// paddingHorizontal:10,
 		// margin: 5,
 		gap: 10,
