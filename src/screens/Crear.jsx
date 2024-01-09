@@ -36,7 +36,7 @@ const CrearCuenta = ({navigation}) => {
 			Bitacoras: [],
 			Clave: contra
 		};
-
+		
 		if(!nombre.length || !apellidoM.length || !apellidoP.length || !telefono.length || !email.length)
 		{
 			Alert.alert("Debes Llenar todos los campos");
