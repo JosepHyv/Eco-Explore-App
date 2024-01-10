@@ -16,6 +16,7 @@ import useTokenStore from "./src/hooks/TockenStore";
 import CrearCuenta from "./src/screens/Crear";
 import EditProfile from "./src/screens/EditProfile";
 import * as LocalStorage from "./src/hooks/LocalStorage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Tab = createBottomTabNavigator();
 const Theme = {
@@ -45,70 +46,73 @@ export default function App() {
 		});
 	},[]);
 	return (
-		<SafeAreaView style={styles.container}>
-			<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
-			<NavigationContainer theme={Theme}>
-				<Tab.Navigator
-					screenOptions={({ route }) => ({
-						gestureEnabled:true,
-						tabBarLabelStyle:{fontSize:13},
-						tabBarStyle: { position: "fixed" },
-						tabBarIcon: ({ focused, color }) => {
-							let iconName;
+		<GestureHandlerRootView style={{flex:1}}>
 
-							if (route.name === "Explorar") {
-								// iconName = "search-circle";
-								iconName = focused ? "search-circle-sharp" : "search-circle-outline";
-							} else if (route.name === "Agregar") {
-								iconName = focused ? "add-circle" : "add-circle-outline";
-							}
-							else if (route.name === "Perfil"){
-								iconName = focused ? "person-add" : "person-add-outline";
-							}
+			<SafeAreaView style={styles.container}>
+				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
+				<NavigationContainer theme={Theme}>
+					<Tab.Navigator
+						screenOptions={({ route }) => ({
+							gestureEnabled:true,
+							tabBarLabelStyle:{fontSize:13},
+							tabBarStyle: { position: "fixed" },
+							tabBarIcon: ({ focused, color }) => {
+								let iconName;
 
-							// You can return any component that you like here!
-							return <Ionicons name={iconName} size={30} color={color} />;
-						},
-						tabBarActiveTintColor: "green",
-						tabBarInactiveTintColor: "gray",
-					})}
-				>
-					<>
-						{ (token.access_token === undefined)? 
-							<>
-								<Tab.Screen
-									name="IniciarSesion"
-									component={LogIn}
-									options={{tabBarStyle: {display:"none"},headerShown: false}}
-								/>
-								<Tab.Screen
-									name="CrearCuenta"
-									component={CrearCuenta}
-									options={{tabBarStyle: {display:"none"},headerShown: false}}
-								/>
-							</> : 
-							<>
-								<Tab.Screen
-									name='Explorar'
-									component={LandingPage}
-									options={{headerShown: false}}
-								/>
-								<Tab.Screen
-									name='Agregar'
-									component={LandingPage}
-									options={{headerShown: false}}
-								/>
-								<Tab.Screen
-									name='Perfil'
-									component={EditProfile}
-									options={{headerShown: false}}
-								/>
-							</>}
-					</>
-				</Tab.Navigator>
-			</NavigationContainer>
-		
-		</SafeAreaView>
+								if (route.name === "Explorar") {
+									// iconName = "search-circle";
+									iconName = focused ? "search-circle-sharp" : "search-circle-outline";
+								} else if (route.name === "Agregar") {
+									iconName = focused ? "add-circle" : "add-circle-outline";
+								}
+								else if (route.name === "Perfil"){
+									iconName = focused ? "person-add" : "person-add-outline";
+								}
+
+								// You can return any component that you like here!
+								return <Ionicons name={iconName} size={30} color={color} />;
+							},
+							tabBarActiveTintColor: "green",
+							tabBarInactiveTintColor: "gray",
+						})}
+					>
+						<>
+							{ (token.access_token === undefined)? 
+								<>
+									<Tab.Screen
+										name="IniciarSesion"
+										component={LogIn}
+										options={{tabBarStyle: {display:"none"},headerShown: false}}
+									/>
+									<Tab.Screen
+										name="CrearCuenta"
+										component={CrearCuenta}
+										options={{tabBarStyle: {display:"none"},headerShown: false}}
+									/>
+								</> : 
+								<>
+									<Tab.Screen
+										name='Explorar'
+										component={LandingPage}
+										options={{headerShown: false}}
+									/>
+									<Tab.Screen
+										name='Agregar'
+										component={LandingPage}
+										options={{headerShown: false}}
+									/>
+									<Tab.Screen
+										name='Perfil'
+										component={EditProfile}
+										options={{headerShown: false}}
+									/>
+								</>}
+						</>
+					</Tab.Navigator>
+				</NavigationContainer>
+			
+			</SafeAreaView>
+		</GestureHandlerRootView>
 	);
 }
 const styles = StyleSheet.create({

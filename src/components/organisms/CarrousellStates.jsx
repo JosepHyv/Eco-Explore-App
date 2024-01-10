@@ -94,7 +94,7 @@ const CarrouselState = ({activity=""}) => {
 			setIsLoading(false);
 			setError(true);
 		});
-	});
+	}, []);
 
 
 	return (
