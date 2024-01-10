@@ -3,12 +3,10 @@ import { useState } from "react";
 import { View, StyleSheet, Text, Image, FlatList, Pressable, SafeAreaView, Modal} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
-import { eco_explore_api, getImageUri } from "../utils/ApiUtils";
 import ComentaryView from "./ComentaryView";
-import useCurrentRouteStore from "../hooks/currentRouteStore";
 import { obtainImageUri } from "../utils/ApiUtils";
-import ImageView from "react-native-image-viewing";
-import Gallery from "react-native-awesome-gallery";
+import MapView, {Marker} from "react-native-maps";
+
 // import Gallery from "react-native-image-gallery";
 
 const delimiteDescription = (desc) => {
@@ -30,18 +28,15 @@ const PointCards = ({data}) => {
 		// console.log(obtainImageUri(item.UrlMedia));
 		// imageData.push({source: obtainImageUri(item.UrlMedia),  dimensions: { width: 50, height: 50 }});
 		imageData.push(obtainImageUri(item.UrlMedia));
-		imageData.push(obtainImageUri(item.UrlMedia));
-		imageData.push(obtainImageUri(item.UrlMedia));
-		imageData.push(obtainImageUri(item.UrlMedia));
 	});
-	console.log(imageData);
+	// console.log(imageData);
 	// const [visible, setVisible] = useState(false);
 	return (
 		<View style={{flex:1, backgroundColor:"#fff"}}>
 			<FlatList
 				style={{margin:5}}
 				contentContainerStyle={{gap:10}}
-				columnWrapperStyle={{justifyContent: "space-between"}}
+				columnWrapperStyle={{justifyContent: "flex-start", gap:15}}
 				data={imageData}
 				renderItem={({item}) => <Pressable onPress={() => {
 					setVisible(true);
@@ -90,6 +85,31 @@ const PointCards = ({data}) => {
 	);
 };
 
+const Maps = ({points}) => {
+	const data =  [];
+	points.forEach(item => {
+		const obj = {
+			longitude: item.Lon,
+			latitude: item.Lat,
+			latitudeDelta: 0.01,
+			longitudeDelta: 0.01,
+		};
+		data.push(obj);
+	});
+	const first = {
+		longitude: points[0].Lon,
+		latitude: points[0].Lat,
+		latitudeDelta: 0.009,
+		longitudeDelta: 0.009,
+	};
+	console.log(first);
+	return (
+		<MapView style={styles.map} initialRegion={first}>
+			{data.map((item, index )=> (<Marker key={index} pinColor={"#"+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, "0")} coordinate={item}/>))}
+		</MapView>
+	);
+};
+
 
 const LogbookView = ({rutaActual, setVisible}) => { 
 	const [modalVisible, setModalVisible] = useState(false);
@@ -97,7 +117,8 @@ const LogbookView = ({rutaActual, setVisible}) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.mapContainer}>
-				<Text>Map Container</Text>
+				{/* <Text>Map Container</Text> */}
+				<Maps points={ruta.PuntosInteres}/>
 			</View>
 			<View style={styles.explorationButton}>
 				<Ionicons name="card-outline" size={24} color="black" />
@@ -149,7 +170,7 @@ const styles = StyleSheet.create({
 		marginHorizontal:7
 	},
 	mapContainer:{
-		flex:0.5,
+		flex:0.8,
 		borderTopLeftRadius:18,
 		borderTopRightRadius:18,
 		backgroundColor:"green"
@@ -164,7 +185,7 @@ const styles = StyleSheet.create({
 		justifyContent:"center",
 		alignItems:"center",
 		height:30,
-		backgroundColor:"pink",
+		backgroundColor:"#a9e283",
 		borderBottomRightRadius:18,
 		borderBottomLeftRadius:18,
 		// borderWidth:1,
@@ -211,7 +232,13 @@ const styles = StyleSheet.create({
 		borderRadius:100,
 		backgroundColor:"#f2f2f2"
 	},
-	pointsContainer:{}
+	map: {
+		width: "100%",
+		height: "100%",
+		borderTopRightRadius:30,
+		borderTopLeftRadius:30,
+
+	},
 
 });
 
