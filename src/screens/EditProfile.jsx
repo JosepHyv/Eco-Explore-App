@@ -55,7 +55,7 @@ const EditProfile = ({ navigation }) => {
 			</View> */}
 			<View style={{flex:1, justifyContent:"center",gap:15}}>
 				<EcoButton title={"Guardar"} onPress={() => console.log("¡ Saved !")} style={styles.button}/>
-				<EcoButton title={"Cerrar Sesión"} onLongPress={() => CerrarSesion()} style={styles.button} color='red'/>
+				<EcoButton title={"Cerrar Sesión"} onLongPress={() => CerrarSesion()} onPress={() => CerrarSesion()}  style={styles.button} color='red'/>
 
 			</View>
 		</SafeAreaView>

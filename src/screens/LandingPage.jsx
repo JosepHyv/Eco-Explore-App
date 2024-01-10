@@ -17,9 +17,6 @@ const LandingPage = ({navigation}) => {
 	const {setUsuario} = useUserStore();
 	const [searchRoute, setSearch] = useState("");
 	useEffect(() => {
-		const actividades = ["Caminata","Ciclismo","Montañismo","Escalada","Rapel","Cañonismo"];
-		const urls = [];
-		actividades.forEach(element => {urls.push(eco_explore_api + "/" + `bitacoras/mejores/rutas/${element}`);});
 		if(token.access_token !== undefined){
 			const config = {"headers": {"Authorization":"Bearer " + token.access_token}};
 			console.log(config);
@@ -34,7 +31,7 @@ const LandingPage = ({navigation}) => {
 			});
 			
 		}
-	}, []);	
+	});	
 
 	return (
 		<SafeAreaView style={styles.container}>

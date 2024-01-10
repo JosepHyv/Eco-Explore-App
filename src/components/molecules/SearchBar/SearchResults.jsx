@@ -85,7 +85,7 @@ const SearchResult = ({search}) => {
 
 	return (
 		<View style={style.container}>
-			<FilterBar/>
+			{/* <FilterBar/> */}
 			<View style={style.resultsArea}>
 				<>
 					{

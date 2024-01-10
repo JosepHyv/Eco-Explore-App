@@ -17,7 +17,10 @@ import CrearCuenta from "./src/screens/Crear";
 import EditProfile from "./src/screens/EditProfile";
 import * as LocalStorage from "./src/hooks/LocalStorage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import CreateLogBook from "./src/screens/CreateLogBook";
+import axios from "axios";
+import { eco_explore_api } from "./src/utils/ApiUtils";
+import useUserStore from "./src/hooks/UserStore";
 const Tab = createBottomTabNavigator();
 const Theme = {
 	// ...DefaultTheme,
@@ -33,6 +36,7 @@ const Theme = {
 
 export default function App() {
 	const {token,setToken} = useTokenStore();
+	const {setUsuario} = useUserStore();
 
 	useEffect(() => {
 		// console.log(token);
@@ -40,6 +44,16 @@ export default function App() {
 			if(ans.access_token !== undefined){
 				console.log(ans);
 				setToken(ans);
+				const config = {"headers": {"Authorization":"Bearer " + ans.access_token}};
+
+				axios.get(eco_explore_api + "/usuarios", config).then(ans => {
+					setUsuario(ans.data);
+				}).catch((error) => {
+					LocalStorage.removeValue("token").then(() => {
+						setToken({});
+					}).catch(() => {});
+					console.log(eco_explore_api + "/usuarios",error);
+				});
 			}
 		}).catch(() => {
 			setToken({});
@@ -98,7 +112,7 @@ export default function App() {
 									/>
 									<Tab.Screen
 										name='Agregar'
-										component={LandingPage}
+										component={CreateLogBook}
 										options={{headerShown: false}}
 									/>
 									<Tab.Screen

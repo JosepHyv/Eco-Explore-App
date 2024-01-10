@@ -120,10 +120,10 @@ const LogbookView = ({rutaActual, setVisible}) => {
 				{/* <Text>Map Container</Text> */}
 				<Maps points={ruta.PuntosInteres}/>
 			</View>
-			<View style={styles.explorationButton}>
+			{/* <View style={styles.explorationButton}>
 				<Ionicons name="card-outline" size={24} color="black" />
 				<Text > Programar Exploracion</Text>
-			</View>
+			</View> */}
 			<View style={styles.infoContainer}>
 				<Text style={styles.title}>{ruta.Nombre}</Text>
 				<View style={styles.raiting}>
