@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { View,  Text, StyleSheet, ActivityIndicator, FlatList } from "react-native";
+import { View,  Text, StyleSheet, ActivityIndicator, FlatList, Modal} from "react-native";
 import Card from "./Card";
 import axios from "axios";
 import { eco_explore_api } from "../../utils/ApiUtils";
+import LogbookView from "../../screens/LogbookView";
 
 const getImageUri = (item) => {
 	if(item !== undefined && item.PuntosInteres.length){
@@ -13,26 +14,43 @@ const getImageUri = (item) => {
 };
 
 const Carrousel = ({data}) => {
+	const [visible,setVisible] = useState(false);
+	const [ruta, setRuta] = useState({});
 	return (
 		<>
 			{
 				data.length? 
-					<FlatList
-						contentContainerStyle={styles.carrouselList}
-						horizontal
-						data={data}
-						renderItem={({item}) => <Card 
-							title={item.Nombre}
-							dificulty={item.Dificultad}
-							description={item.Descripcion}
-							raiting={item.Puntuacion}
-							imageUri={getImageUri(item)}
-							onPress={() => {
-								console.log(`Trajeta ${item.id} precionada `);
+					<>
+						<FlatList
+							contentContainerStyle={styles.carrouselList}
+							horizontal
+							data={data}
+							renderItem={({item}) => <Card 
+								title={item.Nombre}
+								dificulty={item.Dificultad}
+								description={item.Descripcion}
+								raiting={item.Puntuacion}
+								imageUri={getImageUri(item)}
+								onPress={() => {
+									console.log(`Trajeta ${item.id} precionada `);
+									setRuta(item);
+									setVisible(!visible);
+								}}
+							/>}
+							keyExtractor={item => item.id}
+						/>
+						<Modal animationType="slide"
+							transparent={false} visible={visible}
+							presentationStyle="pageSheet"
+							onRequestClose={() => {
+								setVisible(!visible);
 							}}
-						/>}
-						keyExtractor={item => item.id}
-					/>
+							// presentationStyle="fullScreen"
+						>
+								
+							<LogbookView ruta={ruta} setVisible={setVisible}/>
+						</Modal>
+					</>
 					:
 					<></>
 			}

@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Pressable } from "react-native";
+import { TextInput, View, StyleSheet, Pressable,KeyboardAvoidingView,Platform } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const InputLabelNative = ({onChangeText = () => {}, placeholder = "", keyboardType ="default", editable = true, multiline = false, maxLength = 100, value, password = false}) => {
 	const [visible, setVisible] = useState(password);
 	return (
-		<View style={style.container}>
+		<KeyboardAvoidingView style={style.container}
+			behavior={Platform.OS === "ios" ? "padding" : ""}   
+		>
 			<TextInput
 				style={{flex:1, verticalAlign:"middle"}}
 				placeholder={placeholder}
@@ -40,7 +42,7 @@ const InputLabelNative = ({onChangeText = () => {}, placeholder = "", keyboardTy
 					<></>}
 			</>
 
-		</View>
+		</KeyboardAvoidingView>
 	);
 };
 
@@ -55,6 +57,8 @@ const style = StyleSheet.create({
 		padding:5,
 		borderWidth:1,
 		borderRadius:10,
+		color:"black",
+		backgroundColor:"#fff",
 		borderColor : "#68A044"
 	}
 });

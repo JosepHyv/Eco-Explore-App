@@ -22,6 +22,7 @@ const formatRaiting = (rate) => Number(rate).toFixed(1);
 
 
 const Card = ({
+	fullData,
 	dificulty,
 	raiting,
 	title,
@@ -32,7 +33,7 @@ const Card = ({
 }) => {
 	return (
 		<View style={[styles.container, {width: search? "97%":360}]}>
-			<Pressable onPress={(event) => onPress(event)}>
+			<Pressable onPress={() => onPress()}>
 				<View style={styles.imageContainer}>
 					<Image style={styles.image} source={imageUri} />
 				</View>

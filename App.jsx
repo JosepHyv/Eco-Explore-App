@@ -20,10 +20,10 @@ import * as LocalStorage from "./src/hooks/LocalStorage";
 const Tab = createBottomTabNavigator();
 const Theme = {
 	// ...DefaultTheme,
-	dark:true,
+	dark:false,
 	colors:{
-		dark:"#000",
-		// ...DefaultTheme.colors,
+		dark:"#fff",
+		...DefaultTheme.colors,
 		primary: "#fff",
 		background:"#fff"
 	}
@@ -46,10 +46,11 @@ export default function App() {
 	},[]);
 	return (
 		<SafeAreaView style={styles.container}>
+			<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
 			<NavigationContainer theme={Theme}>
-				<StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
 				<Tab.Navigator
 					screenOptions={({ route }) => ({
+						gestureEnabled:true,
 						tabBarLabelStyle:{fontSize:13},
 						tabBarStyle: { position: "fixed" },
 						tabBarIcon: ({ focused, color }) => {
