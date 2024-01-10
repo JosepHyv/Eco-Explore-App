@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, StyleSheet, Text, Image, FlatList, Pressable, SafeAreaView, Modal} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -6,9 +6,15 @@ import Feather from "@expo/vector-icons/Feather";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { eco_explore_api, getImageUri } from "../utils/ApiUtils";
 import ComentaryView from "./ComentaryView";
+import useCurrentRouteStore from "../hooks/currentRouteStore";
+
 const delimiteDescription = (desc) => {
-	if(desc.length > 150) return desc.substring(0,100);
+	if(desc && desc.length > 150) return desc.substring(0,100);
 	return desc;
+};
+
+const totalComments = (coment) => {
+	return coment !== undefined && coment.Comentarios.length ? coment.Comentarios.length  : 0;
 };
 
 
@@ -21,8 +27,9 @@ const PointCards = ({data}) => {
 };
 
 
-const LogbookView = ({ruta, setVisible}) => { 
+const LogbookView = ({rutaActual, setVisible}) => { 
 	const [modalVisible, setModalVisible] = useState(false);
+	const [ruta, setRuta] = useState(rutaActual);
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.mapContainer}>
@@ -50,7 +57,7 @@ const LogbookView = ({ruta, setVisible}) => {
 				}}>
 					<View style={styles.commentaryButton}>
 						<Feather name="message-circle" size={18} color="green" />
-        				<Text>{ruta.Comentarios.length}</Text>
+        				<Text>{totalComments(ruta)}</Text>
 					</View>
 				</Pressable>
 			</View>
@@ -67,7 +74,7 @@ const LogbookView = ({ruta, setVisible}) => {
 
 
 			>
-				<ComentaryView Comentarys={ruta.Comentarios}/>
+				<ComentaryView Comentarys={ruta.Comentarios} id={ruta.id} updateRoute={setRuta}/>
 			</Modal>
 		</SafeAreaView>
 	);

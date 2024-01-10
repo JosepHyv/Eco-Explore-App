@@ -1,34 +1,52 @@
 import React from "react";
 import {useState, useEffect} from "react";
-import { Text, View, Pressable, StyleSheet, ActivityIndicator, FlatList} from "react-native";
+import { Text, View, Pressable, StyleSheet, ActivityIndicator, FlatList, Modal} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FilterBar from "../FilterBar/FilterBar";
 import axios from "axios";
 import { eco_explore_api, getImageUri } from "../../../utils/ApiUtils";
 // import Card from "../../organisms/Card";
 import SearchCard from "../../organisms/SearchCard";
+import LogbookView from "../../../screens/LogbookView";
 
-
-const SearchCards = ({rutas}) => { 
+const SearchCards = ({rutas}) => {
+	const [visible,setVisible] = useState(false);
+	const [ruta, setRuta] = useState({}); 
 	return ( 
 		<>
 			{rutas.length? 
-				<FlatList
-					contentContainerStyle={{ marginVertical:5, gap:15}}
-					data={rutas}
-					renderItem={({item}) => <SearchCard 
-						title={item.Nombre}
-						dificulty={item.Dificultad}
-						raiting={item.Puntuacion}
-						imageUri={getImageUri(item)}
-						onPress={() => {
-							console.log(`Trajeta ${item.id} precionada `);
+				<>
+					
+					<FlatList
+						contentContainerStyle={{ marginVertical:5, gap:15}}
+						data={rutas}
+						renderItem={({item}) => <SearchCard 
+							title={item.Nombre}
+							dificulty={item.Dificultad}
+							raiting={item.Puntuacion}
+							imageUri={getImageUri(item)}
+							onPress={() => {
+								console.log(`Trajeta ${item.id} precionada `);
+								setRuta(item);
+								setVisible(!visible);
+							}}
+							search
+						/>}
+						keyExtractor={item => item.id}
+						style={{flex:1}}
+					/> 
+					<Modal animationType="slide"
+						transparent={false} visible={visible}
+						presentationStyle="pageSheet"
+						onRequestClose={() => {
+							setVisible(!visible);
 						}}
-						search
-					/>}
-					keyExtractor={item => item.id}
-					style={{flex:1}}
-				/> 
+						// presentationStyle="fullScreen"
+					>
+								
+						<LogbookView rutaActual={ruta} setVisible={setVisible}/>
+					</Modal>
+				</>
 				: <></> 
 			}
 			
@@ -37,10 +55,11 @@ const SearchCards = ({rutas}) => {
 };
 
 
-const SearchResult = ({navigation, search}) => {
+const SearchResult = ({search}) => {
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [rutas, setRutas] = useState([]);
+	// const [visible, setVisible] = useState(false);
 	useEffect(() => {
 		console.log(search);
 		setLoading(true);

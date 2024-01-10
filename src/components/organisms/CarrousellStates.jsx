@@ -48,7 +48,7 @@ const Carrousel = ({data}) => {
 							// presentationStyle="fullScreen"
 						>
 								
-							<LogbookView ruta={ruta} setVisible={setVisible}/>
+							<LogbookView rutaActual={ruta} setVisible={setVisible}/>
 						</Modal>
 					</>
 					:
@@ -94,7 +94,7 @@ const CarrouselState = ({activity=""}) => {
 			setIsLoading(false);
 			setError(true);
 		});
-	},[]);
+	});
 
 
 	return (

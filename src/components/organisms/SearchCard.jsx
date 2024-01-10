@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text, StyleSheet, Pressable } from "react-native";
+import { View, Image, Text, StyleSheet, Pressable, modal } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const cutTitle = (title) => {
