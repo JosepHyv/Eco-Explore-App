@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, View, StyleSheet, FlatList, Pressable,KeyboardAvoidingView, Platform } from "react-native";
+import { Text, View, StyleSheet, FlatList, Pressable,KeyboardAvoidingView, Platform,InputAccessoryView } from "react-native";
 import axios from "axios";
 import { eco_explore_api } from "../utils/ApiUtils";
 import { Loading, EmptyCarrousell } from "../components/organisms/States";
@@ -10,6 +10,9 @@ import InputLabelNative from "../components/atoms/Inputs/InpuLabelNative";
 import useTokenStore from "../hooks/TockenStore";
 import { Ionicons } from "@expo/vector-icons";
 import InputIcon from "../components/molecules/InputIcon/InputIcon";
+
+const KeyboardView = Platform.OS === "ios" ? InputAccessoryView : View;
+
 const Comentary = ({Evaluation, Comment}) => {
 	return (
 		<View style={styles.commentCard}>
@@ -68,13 +71,22 @@ const ComentaryView = ({Comentarys}) => {
 						{!comentarios.length? <EmptyCarrousell title="Ocurrio un problema al recuperar los comentarios"/> : 
 							<View style={styles.commentArea}>
 								<View style={styles.cardArea}>
-									<Comentary Evaluation={comentarios[0].Evaluacion} Comment={comentarios[0].Comentario}/>
+									<FlatList
+										contentContainerStyle={{ marginVertical:5, gap:15}}
+										data={comentarios}
+										renderItem={({item}) => 
+											<Comentary 
+												Evaluation={item.Evaluacion} 
+												Comment={item.Comentario}/>}  
+										// keyExtractor={item => item.id}
+										style={{flex:1}}
+									/>
 								</View>
 								<>
 									{token.access_token? 
-										<View  style={styles.insertArea}>
-											<InputIcon placeholder="Ingresa Un Comentario." value={nuevoComentario} onTextChange={(value) => setNuevo(value)} iconName={"arrow-up-circle"} color={"green"}/>
-										</View> :
+										<KeyboardView  style={styles.insertArea}>
+											<InputIcon placeholder="Ingresa Un Comentario." value={nuevoComentario} onTextChange={(value) => setNuevo(value)} iconName={"arrow-up-circle"} color={"green"} onPress={() => {console.log(nuevoComentario);}}/>
+										</KeyboardView> :
 										<></>
 									}
 								</>
@@ -130,7 +142,7 @@ const styles = StyleSheet.create({
 	},
 	commentArea:{
 		flex:1,
-		borderWidth:1,
+		// borderWidth:1,
 		marginBottom:10,
 		flexDirection:"column"
 	},
@@ -139,11 +151,12 @@ const styles = StyleSheet.create({
 	},
 	insertArea: {
 		// flex:0.1,
-		// width:"90%",
+		// flex:0.1,
+		width:"100%",
 		// height:150,
-		// alignSelf:"flex-end",
+		alignSelf:"flex-start",
 		flexDirection:"row",
-		borderWidth:1
+		// borderWidth:1
 	},
 });
 
