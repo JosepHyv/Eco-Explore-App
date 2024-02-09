@@ -7,4 +7,12 @@ const getImageUri = (item) => {
 	else return require("../../assets/image-load-failed.jpg");
 };
 
-export {eco_explore_api, getImageUri};
+const obtainImageUri = (item) => {
+	if(item !== undefined && item.length)
+	{
+		return {uri: item};
+	}
+	return require("../../assets/image-load-failed.jpg");
+};
+
+export {eco_explore_api, getImageUri,obtainImageUri};
